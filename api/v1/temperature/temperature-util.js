@@ -8,10 +8,14 @@ const formatTemperature = (temperature) => {
     delete temperature.unidadeMedida;
 
     const temp = {
-        temperatura : temperature.temperatura,
-        data : temperature.data,
-        hora : temperature.hora
+        temperature : temperature.temperatura,
+        date : temperature.data,
+        time : temperature.hora
     }
+
+    delete temperature.data;
+    delete temperature.hora;
+    delete temperature.temperatura;
 
     return temp;
 }

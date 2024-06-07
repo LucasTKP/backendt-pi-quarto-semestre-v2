@@ -2,12 +2,12 @@ const Joi= require('joi');
 
 const saveHumiditySchema ={
     payload: Joi.object({
-        umidade: Joi
+        humidity: Joi
                 .string()
                 .min(3)
                 .max(6)
                 .required(),
-        unidadeMedida: Joi
+        unit_of_measurement: Joi
                 .string()
                 .min(1)
                 .max(5)
@@ -17,7 +17,7 @@ const saveHumiditySchema ={
 
 const getHumiditySchema = {
     query: Joi.object({
-        last: Joi.boolean()
+        latest: Joi.boolean()
     })
 }
 

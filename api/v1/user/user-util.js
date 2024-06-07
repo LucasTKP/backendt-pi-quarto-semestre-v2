@@ -12,7 +12,7 @@ const generateToken = (id) =>{
 
 const checkUserExists = async (email) => {
     const userExists = await User.findOne({email});
-    return userExists;
+    return userExists || null; // Retorna o usuário encontrado ou null se não encontrado
 }
 
 module.exports = {generateToken,checkUserExists}

@@ -7,10 +7,15 @@ const formatHumidity = (humidity) => {
     delete humidity.unidadeMedida;
 
     const humdt = {
-        umidade : humidity.umidade,
-        data : humidity.data,
-        hora : humidity.hora
+        humidity : humidity.umidade,
+        date : humidity.data,
+        time : humidity.hora
     }
+
+    delete humidity.umidade;
+    delete humidity.data;
+    delete humidity.hora;
+
     return humdt;
 
 }

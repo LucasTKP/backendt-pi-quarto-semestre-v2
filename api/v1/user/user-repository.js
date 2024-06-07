@@ -5,6 +5,7 @@ const save = async (user) =>{
 }
 
 const login = async (user) => {
+    
     return User.findByIdAndUpdate(user._id, {
         ultimoLogin :Date.now() - 3*60*60*1000
     },{
@@ -14,8 +15,9 @@ const login = async (user) => {
 }
 
 const resetPassword = async (user) => {
+
     return User.findOneAndUpdate(user._id, {
-        senha: user.senhaNova
+        senha: user.new_password
     },{
         new: true,
         returnOriginal: false

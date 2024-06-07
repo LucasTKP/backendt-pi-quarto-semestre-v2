@@ -4,6 +4,12 @@ const timeUtil = require('../../../util/time-util.js');
 
 const save = async (humidity) => {
 
+    humidity.temperatura = humidity.humidity;
+    humidity.unidadeMedida = humidity.unit_of_measurement;
+
+    delete humidity.humidity;
+    delete humidity.unit_of_measurement;
+
     humidity.data = dateUtil.getDataAtual();
     humidity.hora = timeUtil.getHoraAtual();
 

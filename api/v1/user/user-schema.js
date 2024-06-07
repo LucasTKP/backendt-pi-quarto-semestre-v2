@@ -2,7 +2,7 @@ const Joi= require('joi');
 
 const createUserSchema = {
     payload: Joi.object({
-        nome: Joi
+        name: Joi
                 .string()
                 .min(3)
                 .max(60)
@@ -12,7 +12,7 @@ const createUserSchema = {
                 .min(15)
                 .max(40)
                 .required(),
-        senha: Joi
+        password: Joi
                 .string()
                 .min(8)
                 .max(40)
@@ -24,10 +24,10 @@ const loginSchema = {
     payload: Joi.object({
         email: Joi
                 .string()
-                .min(15)
+                .min(10)
                 .max(40)
                 .required(),
-        senha: Joi
+        password: Joi
                 .string()
                 .min(8)
                 .max(40)
@@ -42,12 +42,12 @@ const resetPasswordSchema = {
                 .min(15)
                 .max(40)
                 .required(),
-        senhaAtual: Joi
+        password: Joi
                 .string()
                 .min(8)
                 .max(40)
                 .required(),
-        senhaNova: Joi
+        new_password: Joi
                 .string()
                 .min(8)
                 .max(40)

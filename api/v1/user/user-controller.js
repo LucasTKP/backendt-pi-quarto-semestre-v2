@@ -6,25 +6,17 @@ const create = async (request, h) =>{
     
     try {
 
-        const checkUser = await util.checkUserExists(request.payload);
-        if(!checkUser){
+        const checkUser = await util.checkUserExists(request.payload.email);
+
+        if (checkUser != null) return h.response({"message": "There is already a user with this email"}).code(400);
+        else {
             const result = await business.create(request.payload);
-            const token = util.generateToken(result.__id); 
-            const newUser = {
-                "nome": result.nome,
-                "email": result.email,
-                "token": token
-            }
-            return h.response(newUser).code(201);
-        }else{
-            h.response({"mensagem": "Já existe um usuário com esse email"}).code(400);
-        }
-        
-        
+            return h.response(result).code(201);
+        }        
 
     } catch (error) {
         console.log(error);
-        h.response({"mensagem": error});
+        h.response({"message": error});
     }
 
 }
@@ -34,31 +26,23 @@ const login = async (request, h) => {
     try {
 
         const checkUser = await util.checkUserExists(request.payload.email);
-        if(checkUser){
-            const matchPassword = await bcrypt.compare(request.payload.senha, checkUser.senha);
+
+        if(checkUser === null) return h.response({"mensage": "User not found"}).code(404);
+        else {
+            const matchPassword = await bcrypt.compare(request.payload.password, checkUser.senha);
             if(matchPassword) {
                 request.payload._id = checkUser._id;
-                const result = await business.login(request.payload);
-                const token = util.generateToken(result.__id); 
-                const loginUser = {
-                    "nome": checkUser.nome,
-                    "email": result.email,
-                    "token": token
-                }
-                return h.response(loginUser).code(200);
+                request.payload.name = checkUser.nome;
+                return h.response(await business.login(request.payload)).code(200);
             }else{
-                return h.response({"mensagem": "Email ou senha errada"}).code(403);
+                return h.response({"message": "Wrong email or password"}).code(403);
             }
-            
-        }else{
-            h.response({"mensagem": "Usuário não encontrado"}).code(400);
         }
-        
         
 
     } catch (error) {
         console.log(error);
-        h.response({"mensagem": error});
+        h.response({"message": error});
     }
 
 }
@@ -68,7 +52,7 @@ const resetPassword = async (request, h) => {
 
         const checkUser = await util.checkUserExists(request.payload.email);
         if(checkUser){
-            const matchPassword = await bcrypt.compare(request.payload.senhaAtual, checkUser.senha);
+            const matchPassword = await bcrypt.compare(request.payload.password, checkUser.senha);
             if(matchPassword) {
                 request.payload._id = checkUser._id;
                 const result = await business.resetPassword(request.payload);
@@ -76,14 +60,14 @@ const resetPassword = async (request, h) => {
             }
             
         }else{
-            h.response({"mensagem": "Usuário não encontrado"}).code(400);
+            h.response({"message": "User not found"}).code(400);
         }
         
         
 
     } catch (error) {
         console.log(error);
-        h.response({"mensagem": error});
+        h.response({"message": error});
     }
 }
 

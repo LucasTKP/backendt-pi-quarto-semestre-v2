@@ -6,22 +6,25 @@ const create = async (request, h) => {
         return h.response(await business.save(request.payload)).code(201);
     } catch (error) {
         console.error(error);
+        h.response({"message": error});
     }
 }
 
 const getTemperature = async (request, h) => {
     try {
-        if(request.query) {
+        if(request.query.latest != null && request.query.latest == true) {
             const result = await business.findLast();
-            return h.response(util.formatTemperature(result)).code(200);
+            if(result != null) return h.response(util.formatTemperature(result)).code(200);
+            else return h.response({"message":"Temperatures not found"}).code(404)
         }
         else{
             const result = await business.findAll();
-            result.map((temperature) => temperature = util.formatTemperature(temperature));
-            return h.response(result).code(200);
+            if(result != null ) return h.response(result.map((temperature) => temperature = util.formatTemperature(temperature))).code(200);
+            else return h.response({"message":"Temperatures not found"}).code(404)
         } 
     } catch (error) {
         console.error(error);
+        h.response({"message": error});
     }
 }
 
