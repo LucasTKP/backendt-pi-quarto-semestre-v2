@@ -60,7 +60,7 @@ const resetPassword = async (request, h) => {
             }
             
         }else{
-            h.response({"message": "User not found with this email"}).code(400);
+            h.response({"message": "User not found with this email"}).code(404);
         }
         
         
