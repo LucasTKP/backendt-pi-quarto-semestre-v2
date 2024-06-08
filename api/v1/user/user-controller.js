@@ -57,7 +57,7 @@ const resetPassword = async (request, h) => {
                 request.payload._id = checkUser._id;
                 const result = await business.resetPassword(request.payload);
                 return h.response(result).code(204);
-            }
+            }else return h.response({"message":"Password does not match the database"}).code(403);
             
         }else{
             h.response({"message": "User not found with this email"}).code(404);
