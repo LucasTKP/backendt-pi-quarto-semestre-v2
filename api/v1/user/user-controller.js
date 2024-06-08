@@ -8,7 +8,7 @@ const create = async (request, h) =>{
 
         const checkUser = await util.checkUserExists(request.payload.email);
 
-        if (checkUser != null) return h.response({"message": "There is already a user with this email"}).code(400);
+        if (checkUser != null) return h.response({"message": "There is already a user with this email"}).code(409);
         else {
             const result = await business.create(request.payload);
             return h.response(result).code(201);
@@ -27,7 +27,7 @@ const login = async (request, h) => {
 
         const checkUser = await util.checkUserExists(request.payload.email);
 
-        if(checkUser === null) return h.response({"mensage": "User not found"}).code(404);
+        if(checkUser === null) return h.response({"mensage": "User not found with this email"}).code(404);
         else {
             const matchPassword = await bcrypt.compare(request.payload.password, checkUser.senha);
             if(matchPassword) {
@@ -60,7 +60,7 @@ const resetPassword = async (request, h) => {
             }
             
         }else{
-            h.response({"message": "User not found"}).code(400);
+            h.response({"message": "User not found with this email"}).code(400);
         }
         
         

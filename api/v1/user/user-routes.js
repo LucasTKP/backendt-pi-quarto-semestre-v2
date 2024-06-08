@@ -9,23 +9,25 @@ const plugin = {
         server.route([
             {
                 method: "POST",
-                path: "/v1/user",
+                path: "/v1/users",
                 options: {
                     handler: create,
-                    validate: schema.createUserSchema
-                }
+                    validate: schema.createUserSchema,
+                    auth: false
+                },
             },
             {
                 method: "POST",
-                path: "/v1/user/login",
+                path: "/v1/users/login",
                 options: {
                     handler: login,
-                    validate: schema.loginSchema
+                    validate: schema.loginSchema,
+                    auth: false
                 }
             },
             {
                 method: "PATCH",
-                path: "/v1/user",
+                path: "/v1/users",
                 options: {
                     handler: resetPassword,
                     validate: schema.resetPasswordSchema

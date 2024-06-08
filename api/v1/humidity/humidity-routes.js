@@ -11,7 +11,8 @@ const plugin = {
                 path: "/v1/humidities/iot",
                 options: {
                     handler: create,
-                    validate: schema.saveHumiditySchema
+                    validate: schema.saveHumiditySchema,
+                    auth: false
                 }
             },
             {

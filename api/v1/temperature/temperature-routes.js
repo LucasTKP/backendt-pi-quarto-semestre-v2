@@ -11,7 +11,8 @@ const plugin = {
                 path: "/v1/temperatures/iot",
                 options: {
                     handler: create,
-                    validate: schema.saveTemperatureSchema
+                    validate: schema.saveTemperatureSchema,
+                    auth: false
                 }
             },
             {
