@@ -9,7 +9,7 @@ const createUserSchema = {
                 .required(),
         email: Joi
                 .string()
-                .min(15)
+                .min(10)
                 .max(40)
                 .required(),
         password: Joi
@@ -39,7 +39,7 @@ const resetPasswordSchema = {
     payload: Joi.object({
         email: Joi
                 .string()
-                .min(15)
+                .min(10)
                 .max(40)
                 .required(),
         password: Joi
