@@ -3,9 +3,7 @@ const Joi= require('joi');
 const saveHumiditySchema ={
     payload: Joi.object({
         humidity: Joi
-                .string()
-                .min(3)
-                .max(6)
+                .number()
                 .required(),
         unit_of_measurement: Joi
                 .string()

@@ -4,12 +4,6 @@ const timeUtil = require('../../../util/time-util.js');
 
 const save = async (temperature) => {
 
-    temperature.temperatura = temperature.temperature;
-    temperature.unidadeMedida = temperature.unit_of_measurement;
-
-    delete temperature.temperature;
-    delete temperature.unit_of_measurement;
-
     temperature.data = dateUtil.getDataAtual();
     temperature.hora = timeUtil.getHoraAtual();
 

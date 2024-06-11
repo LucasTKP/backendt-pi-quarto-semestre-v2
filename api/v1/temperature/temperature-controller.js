@@ -3,7 +3,8 @@ const util = require('./temperature-util.js')
 
 const create = async (request, h) => {
     try {
-        return h.response(await business.save(request.payload)).code(201);
+        const result = await business.save(util.formatPayload(request.payload))
+        return h.response(util.formatTemperature(result)).code(201);
     } catch (error) {
         console.error(error);
         h.response({"message": error});

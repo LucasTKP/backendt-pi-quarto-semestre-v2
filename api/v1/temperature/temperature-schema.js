@@ -3,9 +3,7 @@ const Joi= require('joi');
 const saveTemperatureSchema ={
     payload: Joi.object({
         temperature: Joi
-                .string()
-                .min(3)
-                .max(6)
+                .number()
                 .required(),
         unit_of_measurement: Joi
                 .string()

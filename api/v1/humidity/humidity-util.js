@@ -20,4 +20,14 @@ const formatHumidity = (humidity) => {
 
 }
 
-module.exports = {formatHumidity};
+const formatPayload = (humidity) => {
+    humidity.umidade = humidity.humidity;
+    humidity.unidadeMedida = humidity.unit_of_measurement;
+
+    delete humidity.humidity;
+    delete humidity.unit_of_measurement;
+
+    return humidity;
+}
+
+module.exports = {formatHumidity, formatPayload};

@@ -20,5 +20,17 @@ const formatTemperature = (temperature) => {
     return temp;
 }
 
-module.exports = {formatTemperature};
+const formatPayload = (temperature) => {
+
+    temperature.temperatura = temperature.temperature;
+    temperature.unidadeMedida = temperature.unit_of_measurement;
+
+    delete temperature.temperature;
+    delete temperature.unit_of_measurement;
+
+    return temperature;
+
+}
+
+module.exports = {formatTemperature, formatPayload};
 
